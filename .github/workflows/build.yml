@@ -35,8 +35,8 @@ jobs:
       shell: bash
       run: |
         # brew install pyenv
-        brew uninstall --ignore-dependencies python
-        brew install python@3.12
+        brew uninstall --ignore-dependencies python3
+        brew reinstall python@3.12
 
     # - name: install python 3.12
     #   shell: bash
@@ -60,8 +60,8 @@ jobs:
       shell: bash
       run: |
         uname -m
-        export PATH="$HOME/.pyenv/bin:$PATH"
-        eval "$(pyenv init - bash)"
+        # export PATH="$HOME/.pyenv/bin:$PATH"
+        # eval "$(pyenv init - bash)"
         python --version
         
         # export HERMETIC_PYTHON_VERSION=3.12
