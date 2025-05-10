@@ -38,8 +38,11 @@ jobs:
         brew --prefix python
         python --version
         brew uninstall --ignore-dependencies python3
+        brew --prefix python
         python --version
+        brew --prefix python
         brew reinstall python@3.12
+        brew --prefix python
         python --version
 
     # - name: install python 3.12
