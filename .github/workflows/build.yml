@@ -34,6 +34,8 @@ jobs:
     - name: ready enviroment
       shell: bash
       run: |
+        brew uninstall python
+        brew install python@3.12
         pip install setuptools
         # brew install python
         # brew install xyz
