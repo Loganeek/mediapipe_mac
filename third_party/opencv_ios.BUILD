@@ -73,7 +73,6 @@ cc_library(
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
-        "-force_load $(location :OpencvFramework)/opencv2.framework/Versions/A/opencv2",  # 关键修复点
     ],
     deps = [":OpencvFramework"],
     visibility = ["//visibility:public"],
@@ -82,8 +81,5 @@ cc_library(
 # 模块化链接补充（根据实际需要添加）
 cc_library(
     name = "opencv_imgproc",
-    linkopts = [
-        "-Wl,-force_load,$(location :OpencvFramework)/opencv2.framework/Versions/A/opencv2",
-    ],
     deps = [":opencv"],
 )
