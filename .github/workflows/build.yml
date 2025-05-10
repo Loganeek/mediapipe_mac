@@ -43,7 +43,7 @@ jobs:
         echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
         echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc
 
-        ls ~/.profile
+        ls ~/.bash_profile
         # exec "$SHELL"
         # python --version
         # pyenv install 3.12
