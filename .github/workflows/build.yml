@@ -37,23 +37,15 @@ jobs:
         echo $0
         brew install pyenv
 
-    - name: config pyenv
-      shell: bash
-      run: |
-        echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-        echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-        echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc
-        echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
-        echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
-        echo 'eval "$(pyenv init - bash)"' >> ~/.bash_profile
-        source ~/.bashrc
-        
     - name: install python 3.12
       shell: bash
       run: |
         python --version
         pyenv install 3.12
         pyenv global 3.12
+        
+        export PATH="$HOME/.pyenv/bin:$PATH"
+        eval "$(pyenv init - bash)"
         python --version
         pip install setuptools
         
@@ -67,6 +59,10 @@ jobs:
       shell: bash
       run: |
         uname -m
+        export PATH="$HOME/.pyenv/bin:$PATH"
+        eval "$(pyenv init - bash)"
+        python --version
+        
         # export HERMETIC_PYTHON_VERSION=3.12
         bazel build -c opt --config ios_arm64 --define OPENCV=source --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
