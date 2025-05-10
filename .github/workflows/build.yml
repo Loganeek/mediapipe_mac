@@ -9,8 +9,7 @@ on:
    inputs:
       version: 
         description: '版本号'
-        required: true
-        default: '0.0.0.0'
+        required: false
 
 jobs:
   build:
@@ -37,6 +36,12 @@ jobs:
     #  run: |
     #    chmod +x ./setup_opencv.sh
     #    ./setup_opencv.sh
+
+    - name: build
+      shell: bash
+      run: |
+        uname -m
+        bazel build -c opt --config ios_arm64 --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
     # - name: build
     #   shell: bash
