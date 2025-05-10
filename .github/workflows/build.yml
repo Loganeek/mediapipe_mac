@@ -35,8 +35,11 @@ jobs:
       shell: bash
       run: |
         # brew install pyenv
+        python --version
         brew uninstall --ignore-dependencies python3
+        python --version
         brew reinstall python@3.12
+        python --version
 
     # - name: install python 3.12
     #   shell: bash
