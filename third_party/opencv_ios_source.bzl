@@ -23,7 +23,7 @@ load(
 
 _OPENCV_XCFRAMEWORK_DIR_NAME = "opencv2.xcframework"
 _OPENCV_FRAMEWORK_DIR_NAME = "opencv2.framework"
-# _OPENCV_SIMULATOR_PLATFORM_DIR_NAME = "ios-arm64_x86_64-simulator"
+_OPENCV_SIMULATOR_PLATFORM_DIR_NAME = "ios-arm64_x86_64-simulator"
 _OPENCV_DEVICE_PLATFORM_DIR_NAME = "ios-arm64"
 
 def _select_headers_impl(ctx):
