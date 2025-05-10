@@ -34,6 +34,7 @@ jobs:
     - name: ready enviroment
       shell: bash
       run: |
+        echo $0
         brew install pyenv
 
     - name: config pyenv
