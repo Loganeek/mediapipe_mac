@@ -133,6 +133,8 @@ cc_binary(
     linkopts = [
         "-Wl,-install_name,libhand_landmarker.dylib",
         "-fvisibility=hidden",
+        "-Wl,-force_load,$(location @ios_opencv//:opencv_imgproc)",
+        "-Wl,-undefined,dynamic_lookup"  # 允许延迟绑定
     ],
     copts = [
         "-std=c++11",
@@ -148,9 +150,5 @@ cc_binary(
         ":hand_landmarker_lib",
         "@ios_opencv//:opencv_core",
         "@ios_opencv//:opencv_imgproc",  # 新增关键依赖
-    ],
-    linkopts = [
-        "-Wl,-force_load,$(location @ios_opencv//:opencv_imgproc)",
-        "-Wl,-undefined,dynamic_lookup"  # 允许延迟绑定
     ],
 )
