@@ -144,5 +144,5 @@ cc_binary(
         "nobuilder",
         "notap",
     ],
-    deps = [":hand_landmarker_lib"， "//mediapipe/framework/port:opencv_imgproc"],
+    deps = [":hand_landmarker_lib", "//mediapipe/framework/port:opencv_imgproc"],
 )
