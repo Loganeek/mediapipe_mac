@@ -50,7 +50,7 @@ jobs:
       shell: bash
       run: |
         uname -m
-        export HERMETIC_PYTHON_VERSION=3.12
+        # export HERMETIC_PYTHON_VERSION=3.12
         bazel build -c opt --config ios_arm64 --define OPENCV=source --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
     # - name: build
