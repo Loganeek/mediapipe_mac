@@ -34,8 +34,8 @@ jobs:
     - name: ready enviroment
       shell: bash
       run: |
-        brew install opencv@3
-        brew uninstall --ignore-dependencies glog
+        brew install python
+        python --version
         
     #- name: setup_opencv
     #  shell: bash
