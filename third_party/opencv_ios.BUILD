@@ -47,26 +47,43 @@
 #     deps = [":opencv_objc_lib"],
 # )
 
-# 新增模块化链接配置
-cc_library(
-    name = "opencv_core",
-    srcs = ["opencv2.framework/opencv2"],  # 静态库路径
-    hdrs = glob(["opencv2.framework/Headers/**/*.h"]),
-    includes = ["opencv2.framework/Headers"],
-    linkopts = [
-        "-framework Accelerate",
-        "-force_load $(location opencv2.framework/opencv2)",
-    ],
+# third_party/opencv_ios.BUILD
+
+# OpenCV iOS 框架的 Bazel 规则修正版
+load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import")
+
+apple_static_framework_import(
+    name = "OpencvFramework",
+    framework_imports = glob([
+        "opencv2.framework/Versions/A/opencv2",  # 静态库本体
+        "opencv2.framework/Versions/A/Headers/**/*.h*",
+        "opencv2.framework/Versions/A/Resources/**",
+    ]),
     visibility = ["//visibility:public"],
 )
 
 cc_library(
-    name = "opencv_imgproc",
-    srcs = ["opencv2.framework/opencv2"],
-    deps = [":opencv_core"],  # 显式声明依赖关系
+    name = "opencv",
+    hdrs = glob([
+        "opencv2.framework/Versions/A/Headers/**/*.h",  # 正确头文件路径
+    ]),
+    includes = ["opencv2.framework/Versions/A/Headers"],  # 包含路径修正
     linkopts = [
+        "-framework Accelerate",
         "-framework CoreImage",
-        "-force_load $(location opencv2.framework/opencv2)",
+        "-framework AVFoundation",
+        "-framework CoreVideo",
+        "-force_load $(location :OpencvFramework)/opencv2.framework/Versions/A/opencv2",  # 关键修复点
     ],
+    deps = [":OpencvFramework"],
     visibility = ["//visibility:public"],
+)
+
+# 模块化链接补充（根据实际需要添加）
+cc_library(
+    name = "opencv_imgproc",
+    linkopts = [
+        "-Wl,-force_load,$(location :OpencvFramework)/opencv2.framework/Versions/A/opencv2",
+    ],
+    deps = [":opencv"],
 )
