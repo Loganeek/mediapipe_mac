@@ -303,7 +303,7 @@ alias(
         "//mediapipe:android_x86_64": "@android_opencv//:libopencv_x86_64",
         "//mediapipe:android_arm": "@android_opencv//:libopencv_armeabi-v7a",
         "//mediapipe:android_arm64": "@android_opencv//:libopencv_arm64-v8a",
-        # "//mediapipe:ios": "@ios_opencv//:opencv",
+        "//mediapipe:ios": "@ios_opencv//:opencv_imgproc",
         "//mediapipe:macos": "@macos_opencv//:opencv",
         "//mediapipe:windows": "@windows_opencv//:opencv",
         "//conditions:default": "@linux_opencv//:opencv",
