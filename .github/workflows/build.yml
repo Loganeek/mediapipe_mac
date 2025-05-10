@@ -36,13 +36,10 @@ jobs:
       with:
         python-version: 3.12
         
-    # - name: install python 3.12
-    #   shell: bash
-    #   run: |
-    #     export PATH="$HOME/.pyenv/bin:$PATH"
-    #     eval "$(pyenv init - bash)"
-    #     python --version
-    #     pip install setuptools
+    - name: config env
+      shell: bash
+      run: |
+        pip install setuptools
         
     #- name: setup_opencv
     #  shell: bash
