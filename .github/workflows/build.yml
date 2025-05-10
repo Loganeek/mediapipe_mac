@@ -35,9 +35,9 @@ jobs:
       shell: bash
       run: |
         brew install python
-        brew install xyz
-        python --version
-        pip3 install --user six
+        # brew install xyz
+        # python --version
+        # pip3 install --user six
         
     #- name: setup_opencv
     #  shell: bash
