@@ -31,10 +31,11 @@ jobs:
     #   run: |
     #     uname -m
 
-    # - name: ready enviroment
-    #   shell: bash
-    #   run: |
-    #     brew install python
+    - name: ready enviroment
+      shell: bash
+      run: |
+        pip install setuptools
+        # brew install python
         # brew install xyz
         # python --version
         # pip3 install --user six
