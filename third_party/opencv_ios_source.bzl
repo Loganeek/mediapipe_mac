@@ -18,12 +18,12 @@ load(
     "@//third_party:opencv_ios_xcframework_files.bzl",
     "OPENCV_XCFRAMEWORK_INFO_PLIST_PATH",
     "OPENCV_XCFRAMEWORK_IOS_DEVICE_FILE_PATHS",
-    "OPENCV_XCFRAMEWORK_IOS_SIMULATOR_FILE_PATHS",
+    # "OPENCV_XCFRAMEWORK_IOS_SIMULATOR_FILE_PATHS",
 )
 
 _OPENCV_XCFRAMEWORK_DIR_NAME = "opencv2.xcframework"
 _OPENCV_FRAMEWORK_DIR_NAME = "opencv2.framework"
-_OPENCV_SIMULATOR_PLATFORM_DIR_NAME = "ios-arm64_x86_64-simulator"
+# _OPENCV_SIMULATOR_PLATFORM_DIR_NAME = "ios-arm64_x86_64-simulator"
 _OPENCV_DEVICE_PLATFORM_DIR_NAME = "ios-arm64"
 
 def _select_headers_impl(ctx):
@@ -91,7 +91,7 @@ def _unzip_opencv_xcframework_impl(ctx):
     # Array to iterate over the various platforms to declare output files and
     # symlinks.
     platform_filepath_lists = [
-        (_OPENCV_SIMULATOR_PLATFORM_DIR_NAME, OPENCV_XCFRAMEWORK_IOS_SIMULATOR_FILE_PATHS),
+        # (_OPENCV_SIMULATOR_PLATFORM_DIR_NAME, OPENCV_XCFRAMEWORK_IOS_SIMULATOR_FILE_PATHS),
         (_OPENCV_DEVICE_PLATFORM_DIR_NAME, OPENCV_XCFRAMEWORK_IOS_DEVICE_FILE_PATHS),
     ]
 
