@@ -49,7 +49,7 @@ jobs:
     - name: Install CMake
       uses: ssrobins/install-cmake@v1
       with:
-        version: 3.22.2
+        version: 3.24.4
         
         
     - name: config env
