@@ -140,5 +140,13 @@ cc_binary(
         "nobuilder",
         "notap",
     ],
-    deps = [":hand_landmarker_lib"],
+    deps = [
+        ":hand_landmarker_lib",
+        "@ios_opencv//:opencv_core",
+        "@ios_opencv//:opencv_imgproc",  # 新增关键依赖
+    ],
+    linkopts = [
+        "-Wl,-force_load,$(location @ios_opencv//:opencv_imgproc)",
+        "-Wl,-undefined,dynamic_lookup"  # 允许延迟绑定
+    ],
 )

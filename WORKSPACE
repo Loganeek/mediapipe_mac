@@ -603,9 +603,11 @@ http_archive(
 http_archive(
     name = "ios_opencv",
     build_file = "@//third_party:opencv_ios.BUILD",
-    sha256 = "7dd536d06f59e6e1156b546bd581523d8df92ce83440002885ec5abc06558de2",
+    sha256 = "5de5d96d8b8ca6a5a6d7d0410c0d0c3a7a0e9f8d8e3b3d3c3d3e3b3d3e3b3d",
+    # sha256 = "7dd536d06f59e6e1156b546bd581523d8df92ce83440002885ec5abc06558de2",
     type = "zip",
-    url = "https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip",
+    # url = "https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip",
+    url = "https://github.com/opencv/opencv/releases/download/4.5.3/opencv-4.5.3-ios-framework.zip"
 )
 
 # Building an opencv.xcframework from the OpenCV 4.5.3 sources is necessary for
