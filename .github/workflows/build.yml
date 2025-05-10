@@ -36,6 +36,7 @@ jobs:
       run: |
         # brew install pyenv
         brew --prefix python
+        brew link python@3.12
         python --version
         brew uninstall --ignore-dependencies python3
         brew --prefix python
