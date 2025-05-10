@@ -1,0 +1,52 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # You can add more, for any target you'd like!
+        include:
+          - name: macos-latest
+            os: macos-latest
+            
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: build
+      shell: bash
+      run: |
+        uname -m
+        
+    #- name: setup_opencv
+    #  shell: bash
+    #  run: |
+    #    chmod +x ./setup_opencv.sh
+    #    ./setup_opencv.sh
+
+    # - name: build
+    #   shell: bash
+    #   run: |
+    #     uname -m
+    # #    bazel build -c opt --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/object_detector:object_detection_tflite_speed_test
+    # # chmod +x ./build_desktop_examples.sh
+    # # ./build_desktop_examples.sh
+
+    # - name: check binary
+    #   shell: bash
+    #   run: |
+    #     file bazel-bin/mediapipe/tasks/c/vision/object_detector/object_detection_tflite_speed_test
+
+    # - name: Upload archive
+    #   uses: actions/upload-artifact@v4.5.0
+    #   with:
+    #     name: object_detection_tflite_speed_test
+    #     path: bazel-bin/mediapipe/tasks/c/vision/object_detector/object_detection_tflite_speed_test
