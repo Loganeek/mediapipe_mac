@@ -26,10 +26,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: build
-      shell: bash
-      run: |
-        uname -m
+    # - name: build
+    #   shell: bash
+    #   run: |
+    #     uname -m
 
     - name: ready enviroment
       shell: bash
