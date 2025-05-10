@@ -26,37 +26,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.12
     # - name: build
     #   shell: bash
     #   run: |
     #     uname -m
-
-    - name: ready enviroment
-      shell: bash
-      run: |
-        # brew install pyenv
-        brew --prefix python
-        brew link python@3.12
-        python --version
-        brew uninstall --ignore-dependencies python3
-        brew --prefix python
-        python --version
-        brew --prefix python
-        brew reinstall python@3.12
-        brew --prefix python
-        python --version
-
+    
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+        
     # - name: install python 3.12
     #   shell: bash
     #   run: |
-    #     python --version
-    #     pyenv install 3.12
-    #     pyenv global 3.12
-        
     #     export PATH="$HOME/.pyenv/bin:$PATH"
     #     eval "$(pyenv init - bash)"
     #     python --version
@@ -72,10 +54,6 @@ jobs:
       shell: bash
       run: |
         uname -m
-        # export PATH="$HOME/.pyenv/bin:$PATH"
-        # eval "$(pyenv init - bash)"
-        python --version
-        
         # export HERMETIC_PYTHON_VERSION=3.12
         bazel build -c opt --config ios_arm64 --define OPENCV=source --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
