@@ -31,10 +31,10 @@ jobs:
     #   run: |
     #     uname -m
 
-    - name: ready enviroment
-      shell: bash
-      run: |
-        brew install python
+    # - name: ready enviroment
+    #   shell: bash
+    #   run: |
+    #     brew install python
         # brew install xyz
         # python --version
         # pip3 install --user six
@@ -50,7 +50,7 @@ jobs:
       run: |
         uname -m
         export HERMETIC_PYTHON_VERSION=3.12
-        bazel build -c opt --config ios_arm64 --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
+        bazel build -c opt --config ios_arm64 --OPENCV source --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
     # - name: build
     #   shell: bash
