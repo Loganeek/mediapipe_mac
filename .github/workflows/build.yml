@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         # python-version: ["3.10", "3.11", "3.12"]
-        python-version: ["3.12"]
+        python-version: ["3.7"]
         
     # strategy:
     #   matrix:
@@ -55,7 +55,8 @@ jobs:
     - name: config env
       shell: bash
       run: |
-        pip install setuptools
+        pip3 install setuptools
+        pip3 install --user six
         
     #- name: setup_opencv
     #  shell: bash
