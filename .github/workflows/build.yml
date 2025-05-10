@@ -34,20 +34,20 @@ jobs:
     - name: ready enviroment
       shell: bash
       run: |
-        echo $0
-        brew install pyenv
+        # brew install pyenv
+        brew uninstall python
 
-    - name: install python 3.12
-      shell: bash
-      run: |
-        python --version
-        pyenv install 3.12
-        pyenv global 3.12
+    # - name: install python 3.12
+    #   shell: bash
+    #   run: |
+    #     python --version
+    #     pyenv install 3.12
+    #     pyenv global 3.12
         
-        export PATH="$HOME/.pyenv/bin:$PATH"
-        eval "$(pyenv init - bash)"
-        python --version
-        pip install setuptools
+    #     export PATH="$HOME/.pyenv/bin:$PATH"
+    #     eval "$(pyenv init - bash)"
+    #     python --version
+    #     pip install setuptools
         
     #- name: setup_opencv
     #  shell: bash
