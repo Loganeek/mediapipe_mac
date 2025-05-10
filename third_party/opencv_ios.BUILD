@@ -82,4 +82,5 @@ cc_library(
 cc_library(
     name = "opencv_imgproc",
     deps = [":opencv"],
+    visibility = ["//visibility:public"],
 )
