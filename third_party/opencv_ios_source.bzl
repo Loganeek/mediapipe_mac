@@ -23,7 +23,7 @@ load(
 
 _OPENCV_XCFRAMEWORK_DIR_NAME = "opencv2.xcframework"
 _OPENCV_FRAMEWORK_DIR_NAME = "opencv2.framework"
-_OPENCV_SIMULATOR_PLATFORM_DIR_NAME = "ios-arm64_x86_64-simulator"
+# _OPENCV_SIMULATOR_PLATFORM_DIR_NAME = "ios-arm64_x86_64-simulator"
 _OPENCV_DEVICE_PLATFORM_DIR_NAME = "ios-arm64"
 
 def _select_headers_impl(ctx):
@@ -107,7 +107,8 @@ def _unzip_opencv_xcframework_impl(ctx):
     # as symlinks. They have to be explicity declared as symlinks using `ctx.actions.declare_symlink()`.
     directory_symlinks = _opencv2_directory_symlinks(
         ctx,
-        [_OPENCV_SIMULATOR_PLATFORM_DIR_NAME, _OPENCV_DEVICE_PLATFORM_DIR_NAME],
+        # [_OPENCV_SIMULATOR_PLATFORM_DIR_NAME, _OPENCV_DEVICE_PLATFORM_DIR_NAME],
+        [ _OPENCV_DEVICE_PLATFORM_DIR_NAME],
     )
 
     output_files = output_files + directory_symlinks
