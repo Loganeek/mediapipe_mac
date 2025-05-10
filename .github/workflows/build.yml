@@ -36,20 +36,24 @@ jobs:
       run: |
         brew install pyenv
 
-    - name: config
+    - name: config pyenv
       shell: bash
       run: |
         echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
         echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
         echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc
-
-        ls ~/.bash_profile
-        # exec "$SHELL"
-        # python --version
-        # pyenv install 3.12
-        # pyenv global 3.12
-        # python --version
-        # pip install setuptools
+        echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+        echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+        echo 'eval "$(pyenv init - bash)"' >> ~/.bash_profile
+        
+    - name: install python 3.12
+      shell: bash
+      run: |
+        python --version
+        pyenv install 3.12
+        pyenv global 3.12
+        python --version
+        pip install setuptools
         # brew install python
         # brew install xyz
         # python --version
