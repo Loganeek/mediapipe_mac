@@ -11,6 +11,8 @@ on:
         description: '版本号'
         required: false
 
+  workflow_call:
+
 jobs:
   build:
     runs-on: macos-latest
