@@ -66,12 +66,17 @@ cc_library(
     hdrs = glob([
         "opencv2.framework/Versions/A/Headers/**/*.h",
     ]),
-    includes = ["opencv2.framework/Versions/A/Headers"],
+    include_prefix = "opencv2",
     linkopts = [
         "-framework Accelerate",
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
+    ],
+    strip_include_prefix = "opencv2.framework/Versions/A/Headers",
+    copts = [
+        "-std=c++11",
+        "-x objective-c++",
     ],
     # features = ["fully_static_link"],
     deps = [
