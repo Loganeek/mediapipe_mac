@@ -11,7 +11,7 @@ jobs:
   #   uses: ./.github/workflows/build_opencv.yml
 
   build:
-    if: ${{ vars.BUILD_NEW_OPENCV }}
+    if: ${{ vars.BUILD_NEW_OPENCV && false || true }}
     runs-on: macos-latest
     
     # strategy:
