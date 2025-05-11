@@ -47,9 +47,10 @@ jobs:
     - name: replace core and imgproc
       shell: bash
       run: |
+        pwd
         ls -lh
-        cp release/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/
-        cp release/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/
+        cp ../release/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/
+        cp ../release/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/
 
     - name: build
       shell: bash
