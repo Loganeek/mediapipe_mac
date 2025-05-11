@@ -48,6 +48,7 @@ jobs:
         git clone -b 3.4 https://github.com/opencv/opencv.git
         mkdir opencv/release
         cd opencv/release
+        export IPHONEOS_DEPLOYMENT_TARGET=9.0
         cmake .. \
           -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
           -GXcode \
