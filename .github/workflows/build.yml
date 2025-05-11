@@ -7,8 +7,8 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build_opencv:
-    uses: ./.github/workflows/build_opencv.yml
+  # build_opencv:
+  #   uses: ./.github/workflows/build_opencv.yml
 
   build:
     needs: build_opencv
@@ -39,19 +39,19 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Download file for "build opencv"
-      uses: actions/download-artifact@v4
-      with:
-        name: release
-        path: opencv
+    # - name: Download file for "build opencv"
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: release
+    #     path: opencv
 
-    - name: replace core and imgproc
-      shell: bash
-      run: |
-        pwd
-        ls -lh
-        cp opencv/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/
-        cp opencv/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/
+    # - name: replace core and imgproc
+    #   shell: bash
+    #   run: |
+    #     pwd
+    #     ls -lh
+    #     cp opencv/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/hand_landmarker
+    #     cp opencv/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/hand_landmarker
 
     - name: build
       shell: bash
