@@ -131,13 +131,9 @@ cc_binary(
 cc_binary(
     name = "libhand_landmarker.dylib",
     linkopts = [
-        "-Wl,-install_name,libhand_landmarker.dylib",
+        # "-Wl,-install_name,libhand_landmarker.dylib",
         "-fvisibility=hidden",
     ],
-    # copts = [
-    #     "-std=c++11",
-    #     "-x objective-c++",
-    # ],
     linkshared = True,
     tags = [
         "manual",
