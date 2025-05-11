@@ -13,7 +13,7 @@ jobs:
   build:
     # if: ${{ vars.BUILD_NEW_OPENCV && false || true }}
     # needs: ${{ vars.BUILD_NEW_OPENCV && ["build_opencv"] || [] }}
-    needs: ${{ vars.BUILD_NEW_OPENCV && ['build_opencv'] || [] }}
+    needs: '${{ vars.BUILD_NEW_OPENCV && ["build_opencv"] || [] }}'
     runs-on: macos-latest
     
     # strategy:
