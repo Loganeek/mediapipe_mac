@@ -135,10 +135,10 @@ cc_binary(
         "-fvisibility=hidden",
         # "-Fexternal/ios_opencv",
         # "-F$(location @ios_opencv//:opencv_framework_path)",
-        "-F$(execpath @ios_opencv//:opencv2.framework)",
+        "-F$(execpath @ios_opencv//:opencv_framework_dir)",
         "-framework", "opencv2",
     ],
-    # data = ["@ios_opencv//:opencv_framework_dir"],
+    data = ["@ios_opencv//:opencv_framework_dir"],
     linkshared = True,
     tags = [
         "manual",
