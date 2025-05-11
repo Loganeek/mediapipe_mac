@@ -7,7 +7,7 @@ env:
 
 jobs:
   build_opencv:
-    if:  ${{ env.BUILD_NEW_OPENCV == 'true' }}
+    if:  ${{ BUILD_NEW_OPENCV == 'true' }}
     uses: ./.github/workflows/build_opencv.yml
 
   build:
