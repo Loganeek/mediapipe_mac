@@ -20,48 +20,54 @@ jobs:
         python-version: ["3.12"]
         
     steps:
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+    - name: test
+      shell: bash
+      run: |
+        echo "${{ env.BUILD_NEW_OPENCV }}"
+
+
+    # - name: Set up Python ${{ matrix.python-version }}
+    #   uses: actions/setup-python@v5
+    #   with:
+    #     python-version: ${{ matrix.python-version }}
         
-    - name: Install CMake
-      uses: ssrobins/install-cmake@v1
-      with:
-        version: 3.24.4
+    # - name: Install CMake
+    #   uses: ssrobins/install-cmake@v1
+    #   with:
+    #     version: 3.24.4
         
-    - name: config env
-      shell: bash
-      run: |
-        pip3 install setuptools
-        pip3 install --user six
+    # - name: config env
+    #   shell: bash
+    #   run: |
+    #     pip3 install setuptools
+    #     pip3 install --user six
 
-    - uses: actions/checkout@v4
+    # - uses: actions/checkout@v4
 
-    - name: Download file for "build opencv"
-      if: ${{ env.BUILD_NEW_OPENCV }}
-      uses: actions/download-artifact@v4
-      with:
-        name: release
-        path: opencv
+    # - name: Download file for "build opencv"
+    #   if: ${{ env.BUILD_NEW_OPENCV == 'true' }}
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: release
+    #     path: opencv
 
-    - name: replace core and imgproc
-      if: ${{ env.BUILD_NEW_OPENCV }}
-      shell: bash
-      run: |
-        pwd
-        ls -lh
-        cp opencv/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/hand_landmarker
-        cp opencv/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/hand_landmarker
+    # - name: replace core and imgproc
+    #   if: ${{ env.BUILD_NEW_OPENCV == 'true' }}
+    #   shell: bash
+    #   run: |
+    #     pwd
+    #     ls -lh
+    #     cp opencv/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/hand_landmarker
+    #     cp opencv/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/hand_landmarker
 
-    - name: build hand_landmarker.dylib
-      shell: bash
-      run: |
-        uname -m
-        bazel build --verbose_failures -c opt --config ios_arm64 --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
+    # - name: build hand_landmarker.dylib
+    #   shell: bash
+    #   run: |
+    #     uname -m
+    #     bazel build --verbose_failures -c opt --config ios_arm64 --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
-    - name: upload
-      uses: actions/download-artifact@v4
-      with:
-        name: libhand_landmarker.dylib
-        path: bazel-bin/mediapipe/tasks/c/vision/hand_landmarker/libhand_landmarker.dylib
+    # - name: upload
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: libhand_landmarker.dylib
+    #     path: bazel-bin/mediapipe/tasks/c/vision/hand_landmarker/libhand_landmarker.dylib
