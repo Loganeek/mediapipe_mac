@@ -12,7 +12,7 @@ jobs:
 
   build:
     # needs: build_opencv
-    needs: ${{ fromJSON($BUILD_NEW_OPENCV == 'true' && '["build_opencv"]' || '[]') }}
+    needs: ${{ $BUILD_NEW_OPENCV == 'true' && 'build_opencv' || [] }}
 
     runs-on: macos-latest
     
