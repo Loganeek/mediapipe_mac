@@ -1,63 +1,18 @@
-# # Description:
-# #   OpenCV libraries for video/image processing on iOS
+# Description:
+#   OpenCV libraries for video/image processing on iOS
 
-# load(
-#     "@build_bazel_rules_apple//apple:apple.bzl",
-#     "apple_static_framework_import",
-# )
+load(
+    "@build_bazel_rules_apple//apple:apple.bzl",
+    "apple_static_framework_import",
+)
 
-# licenses(["notice"])  # BSD license
+licenses(["notice"])  # BSD license
 
-# exports_files(["LICENSE"])
-
-# apple_static_framework_import(
-#     name = "OpencvFramework",
-#     framework_imports = glob(["opencv2.framework/**"]),
-#     visibility = ["//visibility:public"],
-# )
-
-# objc_library(
-#     name = "opencv_objc_lib",
-#     deps = [":OpencvFramework"],
-# )
-
-# cc_library(
-#     name = "opencv",
-#     hdrs = glob([
-#         "opencv2.framework/Versions/A/Headers/**/*.h*",
-#     ]),
-#     copts = [
-#         "-std=c++11",
-#         "-x objective-c++",
-#     ],
-#     include_prefix = "opencv2",
-#     linkopts = [
-#         "-framework AssetsLibrary",
-#         "-framework CoreFoundation",
-#         "-framework CoreGraphics",
-#         "-framework CoreMedia",
-#         "-framework Accelerate",
-#         "-framework CoreImage",
-#         "-framework AVFoundation",
-#         "-framework CoreVideo",
-#         "-framework QuartzCore",
-#     ],
-#     strip_include_prefix = "opencv2.framework/Versions/A/Headers",
-#     visibility = ["//visibility:public"],
-#     deps = [":opencv_objc_lib"],
-# )
-
-# third_party/opencv_ios.BUILD
-
-# OpenCV iOS 框架的 Bazel 规则修正版
-load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import")
-
+exports_files(["LICENSE"])
 
 apple_static_framework_import(
     name = "OpencvFramework",
-    framework_imports = glob([
-        "opencv2.framework/**",
-    ]),
+    framework_imports = glob(["opencv2.framework/**"]),
     visibility = ["//visibility:public"],
 )
 
@@ -69,31 +24,67 @@ objc_library(
 cc_library(
     name = "opencv",
     hdrs = glob([
-        "opencv2.framework/Versions/A/Headers/**/*.h",
+        "opencv2.framework/Versions/A/Headers/**/*.h*",
     ]),
-    include_prefix = "opencv2",
-    linkopts = [
-        "-framework Accelerate",
-        "-framework CoreImage",
-        "-framework AVFoundation",
-        "-framework CoreVideo",
-    ],
-    strip_include_prefix = "opencv2.framework/Versions/A/Headers",
     copts = [
         "-std=c++11",
         "-x objective-c++",
     ],
-    # features = ["fully_static_link"],
-    deps = [
-        ":opencv_objc_lib",
+    include_prefix = "opencv2",
+    linkopts = [
+        "-framework AssetsLibrary",
+        "-framework CoreFoundation",
+        "-framework CoreGraphics",
+        "-framework CoreMedia",
+        "-framework Accelerate",
+        "-framework CoreImage",
+        "-framework AVFoundation",
+        "-framework CoreVideo",
+        "-framework QuartzCore",
     ],
-    linkstatic = 1,
+    strip_include_prefix = "opencv2.framework/Versions/A/Headers",
     visibility = ["//visibility:public"],
+    deps = [":opencv_objc_lib"],
 )
 
-# 模块化链接补充（根据实际需要添加）
-cc_library(
-    name = "opencv_imgproc",
-    deps = [":opencv"],
-    visibility = ["//visibility:public"],
-)
+# # OpenCV iOS 框架的 Bazel 规则修正版
+# load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import")
+
+
+# apple_static_framework_import(
+#     name = "OpencvFramework",
+#     framework_imports = glob([
+#         "opencv2.framework/**",
+#     ]),
+#     visibility = ["//visibility:public"],
+# )
+
+# objc_library(
+#     name = "opencv_objc_lib",
+#     deps = [":OpencvFramework"],
+# )
+
+# cc_library(
+#     name = "opencv",
+#     hdrs = glob([
+#         "opencv2.framework/Versions/A/Headers/**/*.h",
+#     ]),
+#     include_prefix = "opencv2",
+#     linkopts = [
+#         "-framework Accelerate",
+#         "-framework CoreImage",
+#         "-framework AVFoundation",
+#         "-framework CoreVideo",
+#     ],
+#     strip_include_prefix = "opencv2.framework/Versions/A/Headers",
+#     copts = [
+#         "-std=c++11",
+#         "-x objective-c++",
+#     ],
+#     # features = ["fully_static_link"],
+#     deps = [
+#         ":opencv_objc_lib",
+#     ],
+#     linkstatic = 1,
+#     visibility = ["//visibility:public"],
+# )
