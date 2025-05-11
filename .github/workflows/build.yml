@@ -52,6 +52,7 @@ jobs:
         cmake .. \
           -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
           -GXcode \
+          -DCMAKE_INSTALL_PREFIX=install \
           -DCMAKE_BUILD_TYPE=Release \
           -DOPENCV_INCLUDE_INSTALL_PATH=include \
           -DOPENCV_3P_LIB_INSTALL_PATH=lib/3rdparty \
