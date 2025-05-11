@@ -88,7 +88,7 @@ cc_library(
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
-        "-force_load $(locations :opencv_arm64)",
+        "-force_load $(rootpath :opencv_arm64)",
     ],
     # features = ["fully_static_link"],
     deps = [
