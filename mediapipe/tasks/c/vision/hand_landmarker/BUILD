@@ -142,5 +142,6 @@ cc_binary(
     ],
     deps = [
         ":hand_landmarker_lib",
+        "//mediapipe/framework/port:opencv_imgcodecs"
     ],
 )

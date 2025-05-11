@@ -70,6 +70,8 @@ jobs:
           -DBUILD_opencv_videoio=OFF \
           -DWITH_PROTOBUF=OFF \
           -DIOS_ARCH=arm64 
+        make
+        make install
 
       # -DAPPLE_FRAMEWORK=ON \
       # -DFRAMEWORK_NAME=opencv2 \
@@ -164,3 +166,7 @@ jobs:
     #   with:
     #     name: object_detection_tflite_speed_test
     #     path: bazel-bin/mediapipe/tasks/c/vision/object_detector/object_detection_tflite_speed_test
+
+
+            # "MEDIAPIPE_ENABLE_HALIDE=1",
+            # "MEDIAPIPE_DISABLE_OPENCV=1",
