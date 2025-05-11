@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  # build_opencv:
+  build_opencv:
   #   uses: ./.github/workflows/build_opencv.yml
 
   build:
