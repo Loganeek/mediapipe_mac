@@ -70,13 +70,17 @@ jobs:
           -DBUILD_opencv_videoio=OFF \
           -DWITH_PROTOBUF=OFF \
           -DIOS_ARCH=arm64 
-        make
-        make install
-
+ 
       # -DAPPLE_FRAMEWORK=ON \
       # -DFRAMEWORK_NAME=opencv2 \
       # -DCMAKE_INSTALL_PREFIX=install \
 
+    - name: build opencv for .a
+      shell: bash
+      run: |
+        cd release
+        make
+        make install
 
     # - name: build opencv for .a
     #   shell: bash
