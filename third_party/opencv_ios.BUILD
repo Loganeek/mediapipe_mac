@@ -16,12 +16,6 @@ apple_static_framework_import(
     visibility = ["//visibility:public"],
 )
 
-filegroup(
-    name = "opencv_framework_dir",
-    srcs = glob(["opencv2.framework/**"]),
-    visibility = ["//visibility:public"],
-)
-
 objc_library(
     name = "opencv_objc_lib",
     deps = [":OpencvFramework"],

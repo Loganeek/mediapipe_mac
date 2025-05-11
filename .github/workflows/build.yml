@@ -29,13 +29,13 @@ jobs:
             
     steps:
 
-    - name: check opencv framework
-      shell: bash
-      run: |
-        wget https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip
-        unzip opencv-3.2.0-ios-framework.zip
-        nm -gU opencv2.framework/Versions/A/opencv2 | grep boxPoints
-        nm -gU opencv2.framework/Versions/A/opencv2 | grep convertTo
+    # - name: check opencv framework
+    #   shell: bash
+    #   run: |
+    #     wget https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip
+    #     unzip opencv-3.2.0-ios-framework.zip
+    #     nm -gU opencv2.framework/Versions/A/opencv2 | grep boxPoints
+    #     nm -gU opencv2.framework/Versions/A/opencv2 | grep convertTo
 
 
     - name: Set up Python ${{ matrix.python-version }}
@@ -43,22 +43,63 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         
+    - name: build cmake for .a
+      shell: bash
+      run: |
+        git clone https://github.com/opencv/opencv.git
+        git checkout 3.4
+        mkdir opencv/release
+        cd opencv/release
+        cmake .. \
+          -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
+          -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=install_ios \
+          -DCMAKE_OSX_ARCHITECTURES=arm64 \
+          -DBUILD_SHARED_LIBS=OFF \
+          -DBUILD_TESTS=OFF \
+          -DBUILD_PERF_TESTS=OFF \
+          -DBUILD_opencv_world=OFF \
+          -DBUILD_opencv_highgui=OFF \
+          -DBUILD_opencv_video=OFF \
+          -DBUILD_opencv_videoio=OFF \
+          -DBUILD_opencv_calib3d=OFF \
+          -DBUILD_opencv_dnn=OFF \
+          -DBUILD_opencv_ml=OFF \
+          -DBUILD_opencv_objdetect=OFF \
+          -DBUILD_opencv_flann=OFF \
+          -DBUILD_opencv_photo=OFF \
+          -DBUILD_opencv_stitching=OFF \
+          -DBUILD_opencv_gapi=OFF \
+          -DBUILD_opencv_features2d=ON \
+          -DBUILD_opencv_imgproc=ON \
+          -DBUILD_opencv_core=ON
+        make
+        make install
+
+    - name: Upload archive
+      uses: actions/upload-artifact@v4.5.0
+      with:
+        name: opencv/release
+
+
     # - name: config env
     #   shell: bash
     #   run: |
     #     brew install xyz
         
-    - name: Install CMake
-      uses: ssrobins/install-cmake@v1
-      with:
-        version: 3.24.4
+    # - name: Install CMake
+    #   uses: ssrobins/install-cmake@v1
+    #   with:
+    #     version: 3.24.4
         
         
-    - name: config env
-      shell: bash
-      run: |
-        pip3 install setuptools
-        pip3 install --user six
+    # - name: config env
+    #   shell: bash
+    #   run: |
+    #     pip3 install setuptools
+    #     pip3 install --user six
+
+    
         
     #- name: setup_opencv
     #  shell: bash
@@ -66,18 +107,18 @@ jobs:
     #    chmod +x ./setup_opencv.sh
     #    ./setup_opencv.sh
 
-    - uses: actions/checkout@v4
+    # - uses: actions/checkout@v4
 
-    - name: check opencv framework path
-      shell: bash
-      run: |
-        bazel cquery @ios_opencv//:OpencvFramework --output=starlark --starlark:expr="target.files.to_list()"
+    # - name: check opencv framework path
+    #   shell: bash
+    #   run: |
+    #     bazel cquery @ios_opencv//:OpencvFramework --output=starlark --starlark:expr="target.files.to_list()"
 
-    - name: build
-      shell: bash
-      run: |
-        uname -m
-        bazel build --verbose_failures -c opt --config ios_arm64 --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
+    # - name: build
+    #   shell: bash
+    #   run: |
+    #     uname -m
+    #     bazel build --verbose_failures -c opt --config ios_arm64 --strip always --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
 
     # - name: build
     #   shell: bash
