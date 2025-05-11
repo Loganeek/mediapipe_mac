@@ -57,7 +57,7 @@ apple_static_framework_import(
     name = "OpencvFramework",
     framework_imports = glob([
         "opencv2.framework/**",
-        "opencv2.framework/Versions/A/opencv2"
+        # "opencv2.framework/Versions/A/opencv2"
     ]),
     visibility = ["//visibility:public"],
 )
@@ -88,7 +88,7 @@ cc_library(
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
-        "-force_load $(locations :opencv_binary)",  # 关键修复点
+        "-force_load $(locations :opencv_binary)",
     ],
     # features = ["fully_static_link"],
     deps = [
