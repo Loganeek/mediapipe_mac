@@ -131,18 +131,7 @@ jobs:
         pip3 install setuptools
         pip3 install --user six
 
-    - name: setup_opencv
-      shell: bash
-      run: |
-        chmod +x ./setup_opencv.sh
-        ./setup_opencv.sh
-
     - uses: actions/checkout@v4
-
-    - name: check opencv framework path
-      shell: bash
-      run: |
-        bazel cquery @ios_opencv//:OpencvFramework --output=starlark --starlark:expr="target.files.to_list()"
 
     - name: build
       shell: bash
