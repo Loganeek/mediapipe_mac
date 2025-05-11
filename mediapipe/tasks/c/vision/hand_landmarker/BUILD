@@ -138,7 +138,7 @@ cc_binary(
         "-F$(execpath @ios_opencv//:opencv_framework_dir)",
         "-framework", "opencv2",
     ],
-    data = ["@ios_opencv//:opencv_framework_dir"],
+    data = ["@ios_opencv//:opencv_framework_dir", '@ios_opencv//:opencv2.framework'],
     linkshared = True,
     tags = [
         "manual",
