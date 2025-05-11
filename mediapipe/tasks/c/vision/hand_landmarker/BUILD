@@ -80,7 +80,6 @@ cc_library(
         "@com_google_absl//absl/status",
         "@com_google_absl//absl/status:statusor",
     ],
-    linkstatic = 1,
     alwayslink = 1,
 )
 
