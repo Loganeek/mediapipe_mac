@@ -11,9 +11,7 @@ jobs:
     uses: ./.github/workflows/build_opencv.yml
 
   build:
-    # if: ${{ vars.BUILD_NEW_OPENCV && false || true }}
-    # needs: ${{ vars.BUILD_NEW_OPENCV && ["build_opencv"] || [] }}
-    needs: ${{ vars.BUILD_NEW_OPENCV == 'true' && ['build_opencv'] || [] }}
+    # needs: build_opencv
     runs-on: macos-latest
     
     # strategy:
