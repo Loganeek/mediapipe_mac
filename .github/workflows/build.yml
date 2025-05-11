@@ -21,9 +21,10 @@ jobs:
         
     steps:
     - name: test
+      if: ${{ env.BUILD_NEW_OPENCV }}
       shell: bash
       run: |
-        echo "${{ env.BUILD_NEW_OPENCV }}"
+        echo ${{ env.BUILD_NEW_OPENCV }}
 
 
     # - name: Set up Python ${{ matrix.python-version }}
