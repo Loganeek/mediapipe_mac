@@ -135,8 +135,8 @@ cc_binary(
         "-fvisibility=hidden",
         # "-Fexternal/ios_opencv",
         # "-F$(location @ios_opencv//:opencv_framework_path)",
-        # "-F$(execpath @ios_opencv//:opencv2.framework)",
-        # "-framework", "opencv2",
+        "-F$(execpath @ios_opencv//:opencv2.framework)",
+        "-framework", "opencv2",
     ],
     # data = ["@ios_opencv//:opencv_framework_dir"],
     linkshared = True,
@@ -147,6 +147,6 @@ cc_binary(
     ],
     deps = [
         ":hand_landmarker_lib",
-        "@ios_opencv//:opencv",
+        # "@ios_opencv//:opencv",
     ],
 )
