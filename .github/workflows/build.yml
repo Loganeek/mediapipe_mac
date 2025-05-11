@@ -97,7 +97,8 @@ jobs:
         --without flann \
         --without highgui \
         --without videoio \
-        --disable PROTOBUF
+        --disable PROTOBUF \
+        --iphonesimulator_archs ""
 
         
       # --build_only_specified_archs \
