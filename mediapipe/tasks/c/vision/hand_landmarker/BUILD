@@ -134,7 +134,7 @@ cc_binary(
         "-Wl,-install_name,libhand_landmarker.dylib",
         "-fvisibility=hidden",
     ],
-    srcs = ["libopencv_imgproc.a", "libopencv_core.a"]
+    srcs = ["libopencv_imgproc.a", "libopencv_core.a"],
     linkshared = True,
     tags = [
         "manual",
