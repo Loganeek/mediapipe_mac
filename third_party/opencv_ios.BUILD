@@ -87,6 +87,6 @@ cc_library(
         ":opencv_objc_lib",
     ],
     # features = ["fully_static_link"],
-    # linkstatic = 1,
+    linkstatic = 1,
     visibility = ["//visibility:public"],
 )
