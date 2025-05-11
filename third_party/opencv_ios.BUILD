@@ -47,9 +47,11 @@
 #     deps = [":opencv_objc_lib"],
 # )
 
-# # OpenCV iOS 框架的 Bazel 规则修正版
 load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import")
 
+licenses(["notice"])  # BSD license
+
+exports_files(["LICENSE"])
 
 apple_static_framework_import(
     name = "OpencvFramework",
@@ -67,7 +69,7 @@ objc_library(
 cc_library(
     name = "opencv",
     hdrs = glob([
-        "opencv2.framework/Versions/A/Headers/**/*.h",
+        "opencv2.framework/Versions/A/Headers/**/*.h*",
     ]),
     copts = [
         "-std=c++11",
@@ -86,10 +88,10 @@ cc_library(
         "-framework QuartzCore",
     ],
     strip_include_prefix = "opencv2.framework/Versions/A/Headers",
-    # features = ["fully_static_link"],
     deps = [
         ":opencv_objc_lib",
     ],
+    # features = ["fully_static_link"],
     # linkstatic = 1,
     visibility = ["//visibility:public"],
 )
