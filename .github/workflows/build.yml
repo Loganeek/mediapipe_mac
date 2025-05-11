@@ -52,6 +52,7 @@ jobs:
           -G Xcode \
           -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
           -DIOS_ARCH=arm64
+          IPHONEOS_DEPLOYMENT_TARGET=15.0
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_INSTALL_PREFIX=install_ios \
           -DBUILD_SHARED_LIBS=OFF \
