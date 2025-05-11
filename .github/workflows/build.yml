@@ -115,10 +115,10 @@ jobs:
     #     name: release
     #     path: release
 
-    - name: config env
-      shell: bash
-      run: |
-        brew install xyz
+    # - name: config env
+    #   shell: bash
+    #   run: |
+    #     brew install xyz
         
     - name: Install CMake
       uses: ssrobins/install-cmake@v1
