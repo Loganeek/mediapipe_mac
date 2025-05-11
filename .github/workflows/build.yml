@@ -81,7 +81,7 @@ jobs:
       run: |
         git clone -b 3.4 https://github.com/opencv/opencv.git
         export BUILD_PRECOMMIT=False
-        sed -i '' 's/"-jobs", str(multiprocessing.cpu_count()),/"-jobs", 1,/' opencv/platforms/ios/build_framework.py
+        sed -i '' 's/"-jobs", str(multiprocessing.cpu_count()),/"-jobs", str(1),/' opencv/platforms/ios/build_framework.py
         python opencv/platforms/ios/build_framework.py release \
         --dynamic \
         --iphoneos_archs arm64 \
