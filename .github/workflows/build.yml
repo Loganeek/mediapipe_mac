@@ -48,6 +48,7 @@ jobs:
         git clone -b 3.4 https://github.com/opencv/opencv.git
         export BUILD_PRECOMMIT=False
         python opencv/platforms/ios/build_framework.py release \
+        --dynamic \
         --iphoneos_archs arm64
       # --without dnn \
       # --without ml \
