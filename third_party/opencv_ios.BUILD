@@ -55,14 +55,32 @@ load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import
 
 apple_static_framework_import(
     name = "OpencvFramework",
-    framework_imports = glob(["opencv2.framework/**"]),
+    framework_imports = glob([
+        "opencv2.framework/**",
+        "opencv2.framework/Versions/A/opencv2"
+    ]),
+    visibility = ["//visibility:public"],
+)
+
+# 创建 .a 符号链接以绕过 Bazel 的扩展名检查
+genrule(
+    name = "opencv_symlink",
+    srcs = ["opencv2.framework/Versions/A/opencv2"],
+    outs = ["libopencv.a"],
+    cmd = "ln -sf $(location opencv2.framework/Versions/A/opencv2) $@",
+)
+
+# 声明文件组确保可见性
+filegroup(
+    name = "opencv_binary",
+    srcs = [":libopencv.a"],
     visibility = ["//visibility:public"],
 )
 
 cc_import(
     name = "opencv_arm64",
-    static_library = "opencv2.framework/Versions/A/opencv2",
-    alwayslink = True,  # 强制链接所有符号
+    static_library = ":libopencv.a",  # 指向符号链接
+    alwayslink = True,
 )
 
 cc_library(
@@ -78,6 +96,7 @@ cc_library(
         "-framework CoreVideo",
         "-force_load $(location :opencv_arm64)",  # 关键修复点
     ],
+    features = ["fully_static_link"],
     deps = [
         ":OpencvFramework",
         ":opencv_arm64",  # 显式依赖
