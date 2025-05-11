@@ -60,7 +60,7 @@ jobs:
         --disable PROTOBUF
 
         
-      --build_only_specified_archs \
+      # --build_only_specified_archs \
       # --disable-bitcode \
       # --disable-swift \
 
