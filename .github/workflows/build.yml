@@ -75,12 +75,16 @@ jobs:
       # -DFRAMEWORK_NAME=opencv2 \
       # -DCMAKE_INSTALL_PREFIX=install \
 
-    - name: build opencv for .a
+    - name: build make
       shell: bash
       run: |
         cd release
-        make
-        make install
+        xcodebuild -project OpenCV.xcodeproj \
+          -scheme ALL_BUILD \
+          -configuration Release \
+          -sdk iphoneos \
+          -arch arm64 \
+          build
 
     # - name: build opencv for .a
     #   shell: bash
