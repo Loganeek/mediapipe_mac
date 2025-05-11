@@ -77,12 +77,6 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
-cc_import(
-    name = "opencv_arm64",
-    static_library = ":libopencv.a",  # 指向符号链接
-    alwayslink = True,
-)
-
 cc_library(
     name = "opencv",
     hdrs = glob([
@@ -96,10 +90,10 @@ cc_library(
         "-framework CoreVideo",
         "-force_load $(locations :opencv_binary)",  # 关键修复点
     ],
-    features = ["fully_static_link"],
+    # features = ["fully_static_link"],
     deps = [
         ":OpencvFramework",
-        ":opencv_arm64",  # 显式依赖
+        ":opencv_binary",  # 显式依赖
     ],
     linkstatic = 1,
     visibility = ["//visibility:public"],
