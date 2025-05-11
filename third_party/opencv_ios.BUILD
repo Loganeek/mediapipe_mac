@@ -61,6 +61,11 @@ apple_static_framework_import(
     visibility = ["//visibility:public"],
 )
 
+objc_library(
+    name = "opencv_objc_lib",
+    deps = [":OpencvFramework"],
+)
+
 cc_library(
     name = "opencv",
     hdrs = glob([
@@ -80,7 +85,7 @@ cc_library(
     ],
     # features = ["fully_static_link"],
     deps = [
-        ":OpencvFramework",
+        ":opencv_objc_lib",
     ],
     linkstatic = 1,
     visibility = ["//visibility:public"],
