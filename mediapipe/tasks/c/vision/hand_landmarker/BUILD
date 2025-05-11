@@ -136,6 +136,7 @@ cc_binary(
         "-F$(location @ios_opencv//:OpencvFramework)",
         "-framework", "opencv2",
     ],
+    data = ["@ios_opencv//:OpencvFramework"],
     linkshared = True,
     tags = [
         "manual",
