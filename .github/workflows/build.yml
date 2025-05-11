@@ -51,9 +51,9 @@ jobs:
         cmake .. \
           -G Xcode \
           -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
+          -DARCH=arm64 \
           -DCMAKE_BUILD_TYPE=Release \
           -DCMAKE_INSTALL_PREFIX=install_ios \
-          -DCMAKE_OSX_ARCHITECTURES=arm64 \
           -DBUILD_SHARED_LIBS=OFF \
           -DBUILD_TESTS=OFF \
           -DBUILD_PERF_TESTS=OFF \
@@ -72,8 +72,9 @@ jobs:
           -DBUILD_opencv_features2d=ON \
           -DBUILD_opencv_imgproc=ON \
           -DBUILD_opencv_core=ON \
-          -DCMAKE_C_FLAGS=-fembed-bitcode \
-          -DCMAKE_CXX_FLAGS=-fembed-bitcode
+          -DCMAKE_C_FLAGS="-fembed-bitcode" \
+          -DCMAKE_CXX_FLAGS="-fembed-bitcode"
+
 
 
     # - name: build opencv for .a
