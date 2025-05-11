@@ -64,6 +64,13 @@ jobs:
     #    chmod +x ./setup_opencv.sh
     #    ./setup_opencv.sh
 
+    - name: check opencv framework
+      shell: bash
+      run: |
+        wget https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip
+        unzip opencv-3.2.0-ios-framework.zip
+        nm -gU opencv2.framework/Versions/A/opencv2 | grep boxPoints
+
     - name: build
       shell: bash
       run: |
