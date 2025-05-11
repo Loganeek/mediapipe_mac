@@ -90,16 +90,12 @@ jobs:
         --without stitching \
         --without photo \
         --without objdetect \
-        --without calib3d \
-        --without world \
-        --without video \
         --without gapi \
-        --without features2d \
         --without flann \
         --without highgui \
         --without videoio \
-        --disable PROTOBUF \
-        --iphonesimulator_archs ""
+        --disable PROTOBUF
+      # --iphonesimulator_archs ""
 
         
       # --build_only_specified_archs \
