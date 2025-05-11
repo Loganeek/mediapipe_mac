@@ -13,9 +13,7 @@ jobs:
   build_with_opencv:
     if: $BUILD_NEW_OPENCV == 'true'
     needs: build_opencv
-
-    steps:
-      - uses: build
+    uses: build
 
   build:
     if: $BUILD_NEW_OPENCV != 'true'
