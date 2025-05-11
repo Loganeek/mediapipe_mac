@@ -71,7 +71,9 @@ jobs:
           -DBUILD_opencv_gapi=OFF \
           -DBUILD_opencv_features2d=ON \
           -DBUILD_opencv_imgproc=ON \
-          -DBUILD_opencv_core=ON
+          -DBUILD_opencv_core=ON \
+          -DCMAKE_C_FLAGS=-fembed-bitcode \
+          -DCMAKE_CXX_FLAGS=-fembed-bitcode
 
 
     # - name: build opencv for .a
