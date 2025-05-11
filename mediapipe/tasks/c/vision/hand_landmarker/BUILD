@@ -134,10 +134,11 @@ cc_binary(
         "-Wl,-install_name,libhand_landmarker.dylib",
         "-fvisibility=hidden",
         # "-Fexternal/ios_opencv",
-        "-F$(location @ios_opencv//:opencv_framework_path)",
+        # "-F$(location @ios_opencv//:opencv_framework_path)",
+        "-F$(execpath @ios_opencv//:opencv2.framework)",
         "-framework", "opencv2",
     ],
-    data = ["@ios_opencv//:opencv_framework_path"],
+    data = ["@ios_opencv//:opencv_framework_dir"],
     linkshared = True,
     tags = [
         "manual",

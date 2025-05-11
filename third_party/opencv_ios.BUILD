@@ -17,7 +17,7 @@ apple_static_framework_import(
 )
 
 filegroup(
-    name = "opencv_framework_path",
+    name = "opencv_framework_dir",
     srcs = glob(["opencv2.framework/**"]),
     visibility = ["//visibility:public"],
 )
