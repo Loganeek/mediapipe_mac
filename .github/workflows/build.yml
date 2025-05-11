@@ -46,10 +46,10 @@ jobs:
       shell: bash
       run: |
         git clone -b 3.4 https://github.com/opencv/opencv.git
-        mkdir opencv/release
-        cd opencv/release
+        mkdir release
+        cd release
         export IPHONEOS_DEPLOYMENT_TARGET=9.0
-        cmake .. \
+        cmake ../opencv \
           -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
           -GXcode \
           -DBUILD_SHARED_LIBS=OFF \
@@ -59,7 +59,6 @@ jobs:
           -DCMAKE_BUILD_TYPE=Release \
           -DOPENCV_INCLUDE_INSTALL_PATH=include \
           -DOPENCV_3P_LIB_INSTALL_PATH=lib/3rdparty \
-          -DFRAMEWORK_NAME=opencv2 \
           -DBUILD_opencv_dnn=OFF \
           -DBUILD_opencv_ml=OFF \
           -DBUILD_opencv_stitching=OFF \
@@ -73,6 +72,7 @@ jobs:
           -DIOS_ARCH=arm64 
 
       # -DAPPLE_FRAMEWORK=ON \
+      # -DFRAMEWORK_NAME=opencv2 \
       # -DCMAKE_INSTALL_PREFIX=install \
 
 
