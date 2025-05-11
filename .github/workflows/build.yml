@@ -21,7 +21,7 @@ jobs:
         
     steps:
     - name: test
-      if: ${{ env.BUILD_NEW_OPENCV }}
+      if: ${{ vars.BUILD_NEW_OPENCV }}
       shell: bash
       run: |
         echo ${{ env.BUILD_NEW_OPENCV }}
