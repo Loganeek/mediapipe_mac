@@ -42,42 +42,31 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         
-    - name: build cmake for .a
+    - name: build opencv for .a
       shell: bash
       run: |
         git clone -b 3.4 https://github.com/opencv/opencv.git
-        mkdir opencv/release
-        cd opencv/release
-        cmake .. \
-          -DCMAKE_TOOLCHAIN_FILE=../platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
-          -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_PREFIX=install_ios \
-          -DCMAKE_OSX_ARCHITECTURES=arm64 \
-          -DBUILD_SHARED_LIBS=OFF \
-          -DBUILD_TESTS=OFF \
-          -DBUILD_PERF_TESTS=OFF \
-          -DBUILD_opencv_world=OFF \
-          -DBUILD_opencv_highgui=OFF \
-          -DBUILD_opencv_video=OFF \
-          -DBUILD_opencv_videoio=OFF \
-          -DBUILD_opencv_calib3d=OFF \
-          -DBUILD_opencv_dnn=OFF \
-          -DBUILD_opencv_ml=OFF \
-          -DBUILD_opencv_objdetect=OFF \
-          -DBUILD_opencv_flann=OFF \
-          -DBUILD_opencv_photo=OFF \
-          -DBUILD_opencv_stitching=OFF \
-          -DBUILD_opencv_gapi=OFF \
-          -DBUILD_opencv_features2d=ON \
-          -DBUILD_opencv_imgproc=ON \
-          -DBUILD_opencv_core=ON
-        make
-        make install
+        python opencv/platforms/ios/build_framework.py \
+          --out release \
+          --iphoneos_archs arm64 \
+          --without dnn \
+          --without ml \
+          --without stitching \
+          --without photo \
+          --without objdetect \
+          --without gapi \
+          --without flann \
+          --without highgui \
+          --without videoio \
+          --disable PROTOBUF \
+          --disable-bitcode \
+          --disable-swift \
+          --build_only_specified_archs
 
     - name: Upload archive
       uses: actions/upload-artifact@v4.5.0
       with:
-        name: opencv/release
+        name: release
 
 
     # - name: config env
