@@ -37,7 +37,6 @@ jobs:
     #     nm -gU opencv2.framework/Versions/A/opencv2 | grep boxPoints
     #     nm -gU opencv2.framework/Versions/A/opencv2 | grep convertTo
 
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -46,8 +45,7 @@ jobs:
     - name: build cmake for .a
       shell: bash
       run: |
-        git clone https://github.com/opencv/opencv.git
-        git checkout 3.4
+        git clone -b 3.4 https://github.com/opencv/opencv.git
         mkdir opencv/release
         cd opencv/release
         cmake .. \
