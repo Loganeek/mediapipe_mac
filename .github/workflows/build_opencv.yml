@@ -1,15 +1,7 @@
 name: Build opencv2
 
 on:
-  # push:
-  #   branches: [ "master" ]
-  # pull_request:
-  #   branches: [ "master" ]
   workflow_dispatch:
-   inputs:
-      version: 
-        description: '版本号'
-        required: false
 
   workflow_call:
 
