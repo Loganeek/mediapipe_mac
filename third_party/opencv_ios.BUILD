@@ -70,11 +70,11 @@ genrule(
     cmd = "ln -sf $(location opencv2.framework/Versions/A/opencv2) $@",
 )
 
-# 声明文件组确保可见性
-filegroup(
-    name = "opencv_binary",
-    srcs = [":libopencv.a"],
-    visibility = ["//visibility:public"],
+# 2. 使用 cc_import 包装静态库 (核心修复)
+cc_import(
+    name = "opencv_arm64",
+    static_library = ":libopencv.a",
+    alwayslink = True,
 )
 
 cc_library(
@@ -88,12 +88,12 @@ cc_library(
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
-        "-force_load $(locations :opencv_binary)",
+        "-force_load $(locations :opencv_arm64)",
     ],
     # features = ["fully_static_link"],
     deps = [
         ":OpencvFramework",
-        ":opencv_binary",  # 显式依赖
+        ":opencv_arm64",  # 显式依赖
     ],
     linkstatic = 1,
     visibility = ["//visibility:public"],
