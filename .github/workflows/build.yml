@@ -5,14 +5,14 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  # workflow_dispatch:
-  #  inputs:
-  #     version: 
-  #       description: '版本号'
-  #       required: false
 
 jobs:
+  build_opencv:
+    uses: ./.github/workflows/build_opencv.yml
+
   build:
+    needs: build_opencv
+
     runs-on: macos-latest
     
     strategy:
@@ -20,105 +20,11 @@ jobs:
         # python-version: ["3.10", "3.11", "3.12"]
         python-version: ["3.12"]
         
-    # strategy:
-    #   matrix:
-    #     # You can add more, for any target you'd like!
-    #     include:
-    #       - name: macos-latest
-    #         os: macos-latest
-            
     steps:
-
-    # - name: check opencv framework
-    #   shell: bash
-    #   run: |
-    #     wget https://github.com/opencv/opencv/releases/download/3.2.0/opencv-3.2.0-ios-framework.zip
-    #     unzip opencv-3.2.0-ios-framework.zip
-    #     nm -gU opencv2.framework/Versions/A/opencv2 | grep boxPoints
-    #     nm -gU opencv2.framework/Versions/A/opencv2 | grep convertTo
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        
-    # - name: build opencv for .a
-    #   shell: bash
-    #   run: |
-    #     git clone -b 3.4 https://github.com/opencv/opencv.git
-    #     mkdir release
-    #     cd release
-    #     export IPHONEOS_DEPLOYMENT_TARGET=9.0
-    #     cmake ../opencv \
-    #       -DCMAKE_TOOLCHAIN_FILE=../opencv/platforms/ios/cmake/Toolchains/Toolchain-iPhoneOS_Xcode.cmake \
-    #       -GXcode \
-    #       -DBUILD_SHARED_LIBS=OFF \
-    #       -DBUILD_TESTS=OFF \
-    #       -DBUILD_PERF_TESTS=OFF \
-    #       -DBUILD_opencv_apps=OFF \
-    #       -DCMAKE_BUILD_TYPE=Release \
-    #       -DOPENCV_INCLUDE_INSTALL_PATH=include \
-    #       -DOPENCV_3P_LIB_INSTALL_PATH=lib/3rdparty \
-    #       -DBUILD_opencv_dnn=OFF \
-    #       -DBUILD_opencv_ml=OFF \
-    #       -DBUILD_opencv_stitching=OFF \
-    #       -DBUILD_opencv_photo=OFF \
-    #       -DBUILD_opencv_objdetect=OFF \
-    #       -DBUILD_opencv_gapi=OFF \
-    #       -DBUILD_opencv_flann=OFF \
-    #       -DBUILD_opencv_highgui=OFF \
-    #       -DBUILD_opencv_videoio=OFF \
-    #       -DWITH_PROTOBUF=OFF \
-    #       -DIOS_ARCH=arm64 
-
-    #     xcodebuild -project OpenCV.xcodeproj \
-    #       -scheme ALL_BUILD \
-    #       -configuration Release \
-    #       -sdk iphoneos \
-    #       -arch arm64 \
-    #       build
-
-    #   # -DAPPLE_FRAMEWORK=ON \
-    #   # -DFRAMEWORK_NAME=opencv2 \
-    #   # -DCMAKE_INSTALL_PREFIX=install \
-
-
-    # - name: build opencv for .a
-    #   shell: bash
-    #   run: |
-    #     git clone -b 3.4 https://github.com/opencv/opencv.git
-    #     export BUILD_PRECOMMIT=False
-    #     sed -i '' 's/"-jobs", str(multiprocessing.cpu_count()),/"-jobs", str(1),/' opencv/platforms/ios/build_framework.py
-    #     python opencv/platforms/ios/build_framework.py release \
-    #     --dynamic \
-    #     --iphoneos_archs arm64 \
-    #     --without dnn \
-    #     --without ml \
-    #     --without stitching \
-    #     --without photo \
-    #     --without objdetect \
-    #     --without gapi \
-    #     --without flann \
-    #     --without highgui \
-    #     --without videoio \
-    #     --disable PROTOBUF
-    #   # --iphonesimulator_archs ""
-
-        
-      # --build_only_specified_archs \
-      # --disable-bitcode \
-      # --disable-swift \
-
-    # - name: Upload archive
-    #   uses: actions/upload-artifact@v4.5.0
-    #   with:
-    #     name: release
-    #     path: release
-
-    # - name: config env
-    #   shell: bash
-    #   run: |
-    #     brew install xyz
         
     - name: Install CMake
       uses: ssrobins/install-cmake@v1
@@ -133,31 +39,20 @@ jobs:
 
     - uses: actions/checkout@v4
 
+    - name: Download file for "build opencv"
+      uses: actions/download-artifact@v4
+      with:
+        name: release
+
+    - name: replace core and imgproc
+      shell: bash
+      run: |
+        ls -lh
+        cp release/lib/Release/libopencv_imgproc.a mediapipe/tasks/c/vision/
+        cp release/lib/Release/libopencv_core.a mediapipe/tasks/c/vision/
+
     - name: build
       shell: bash
       run: |
         uname -m
         bazel build --verbose_failures -c opt --config ios_arm64 --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/hand_landmarker:libhand_landmarker.dylib
-
-    # - name: build
-    #   shell: bash
-    #   run: |
-    #     uname -m
-    # #    bazel build -c opt --define MEDIAPIPE_DISABLE_GPU=1 //mediapipe/tasks/c/vision/object_detector:object_detection_tflite_speed_test
-    # # chmod +x ./build_desktop_examples.sh
-    # # ./build_desktop_examples.sh
-
-    # - name: check binary
-    #   shell: bash
-    #   run: |
-    #     file bazel-bin/mediapipe/tasks/c/vision/object_detector/object_detection_tflite_speed_test
-
-    # - name: Upload archive
-    #   uses: actions/upload-artifact@v4.5.0
-    #   with:
-    #     name: object_detection_tflite_speed_test
-    #     path: bazel-bin/mediapipe/tasks/c/vision/object_detector/object_detection_tflite_speed_test
-
-
-            # "MEDIAPIPE_ENABLE_HALIDE=1",
-            # "MEDIAPIPE_DISABLE_OPENCV=1",
