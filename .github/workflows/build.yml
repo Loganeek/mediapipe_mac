@@ -6,13 +6,12 @@ env:
   BUILD_NEW_OPENCV: false
 
 jobs:
-  build_opencv:
-    if: ${{ vars.BUILD_NEW_OPENCV == 'true' }}
-    uses: ./.github/workflows/build_opencv.yml
+  # build_opencv:
+  #   if: ${{ vars.BUILD_NEW_OPENCV == 'true' }}
+  #   uses: ./.github/workflows/build_opencv.yml
 
   build:
-    needs: ${{ vars.BUILD_NEW_OPENCV == 'true' && ['build_opencv'] || [] }}
-
+    # needs: build_opencv
     runs-on: macos-latest
     
     strategy:
