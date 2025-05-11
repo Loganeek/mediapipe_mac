@@ -94,7 +94,7 @@ cc_library(
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
-        "-force_load $(location :opencv_arm64)",  # 关键修复点
+        "-force_load $(locations :opencv_binary)",  # 关键修复点
     ],
     features = ["fully_static_link"],
     deps = [
