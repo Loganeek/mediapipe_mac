@@ -52,14 +52,17 @@
 # OpenCV iOS 框架的 Bazel 规则修正版
 load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import")
 
+
 apple_static_framework_import(
     name = "OpencvFramework",
-    framework_imports = glob([
-        "opencv2.framework/Versions/A/opencv2",  # 静态库本体
-        "opencv2.framework/Versions/A/Headers/**/*.h*",
-        "opencv2.framework/Versions/A/Resources/**",
-    ]),
+    framework_imports = glob(["opencv2.framework/**"]),
     visibility = ["//visibility:public"],
+)
+
+cc_import(
+    name = "opencv_arm64",
+    static_library = "opencv2.framework/Versions/A/opencv2",
+    alwayslink = True,  # 强制链接所有符号
 )
 
 cc_library(
@@ -73,8 +76,13 @@ cc_library(
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
+        "-force_load $(location :opencv_arm64)",  # 关键修复点
     ],
-    deps = [":OpencvFramework"],
+    deps = [
+        ":OpencvFramework",
+        ":opencv_arm64",  # 显式依赖
+    ],
+    linkstatic = 1,
     visibility = ["//visibility:public"],
 )
 
