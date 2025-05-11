@@ -49,9 +49,9 @@
 
 load("@build_bazel_rules_apple//apple:apple.bzl", "apple_static_framework_import")
 
-licenses(["notice"])  # BSD license
+# licenses(["notice"])  # BSD license
 
-exports_files(["LICENSE"])
+# exports_files(["LICENSE"])
 
 apple_static_framework_import(
     name = "OpencvFramework",
@@ -77,15 +77,10 @@ cc_library(
     ],
     include_prefix = "opencv2",
     linkopts = [
-        "-framework AssetsLibrary",
-        "-framework CoreFoundation",
-        "-framework CoreGraphics",
-        "-framework CoreMedia",
         "-framework Accelerate",
         "-framework CoreImage",
         "-framework AVFoundation",
         "-framework CoreVideo",
-        "-framework QuartzCore",
     ],
     strip_include_prefix = "opencv2.framework/Versions/A/Headers",
     deps = [
